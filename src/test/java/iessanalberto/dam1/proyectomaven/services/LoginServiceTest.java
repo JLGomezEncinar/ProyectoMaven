@@ -25,5 +25,11 @@ class LoginServiceTest {
         Assertions.assertFalse(loginService.isLogin("wrongUser","password"));
         Assertions.assertFalse(loginService.isLogin("user","password"));
     }
+    @Test
+    void ResetAttempts () {
+        Assertions.assertFalse(loginService.isLogin("wrongUser","wrongPassword"));
+        Assertions.assertTrue(loginService.isLogin("user","password"));
+        Assertions.assertEquals(0,loginService.getFailedAttempts());
+    }
 
 }
