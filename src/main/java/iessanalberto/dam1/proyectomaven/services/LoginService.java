@@ -14,7 +14,14 @@ public class LoginService {
         boolean result = true;
         if (isLocked()) {
             result = false;
+
         } else {
+            if (user.isEmpty() || user.trim().isEmpty()) {
+                throw new IllegalArgumentException ("El usuario no puede estar vacío.");
+            }
+            if (password.isEmpty() || password.trim().isEmpty()) {
+                throw new IllegalArgumentException ("El password no puede estar vacío.");
+            }
         if(!(user.equals("user") && password.equals("password"))) {
             failedAttempts++;
             result = false;
