@@ -31,5 +31,13 @@ class LoginServiceTest {
         Assertions.assertTrue(loginService.isLogin("user","password"));
         Assertions.assertEquals(0,loginService.getFailedAttempts());
     }
+    @Test
+    void NullLogin () {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            loginService.isLogin("", "password");
+        });
+        assertEquals("El Usuario no puede estar vacío.", exception.getMessage());
+    }
+
 
 }

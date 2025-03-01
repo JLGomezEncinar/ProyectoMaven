@@ -18,8 +18,11 @@ public class LoginService {
         if(!(user.equals("user") && password.equals("password"))) {
             failedAttempts++;
             result = false;
+        } else {
+            failedAttempts = 0;
         }
         }
+
         return result;
     }
     public boolean isLocked() {
