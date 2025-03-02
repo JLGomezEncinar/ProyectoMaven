@@ -1,6 +1,7 @@
 package iessanalberto.dam1.proyectomaven;
 
 import iessanalberto.dam1.proyectomaven.navigation.Navigation;
+import iessanalberto.dam1.proyectomaven.services.UsuarioService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

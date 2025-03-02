@@ -14,6 +14,22 @@ import java.sql.SQLException;
 
 
 public class LoginScreen {
+    public HBox getRow1() {
+        return row1;
+    }
+
+    public TextField getTxtUser() {
+        return txtUser;
+    }
+
+    public PasswordField getTxtPassword() {
+        return txtPassword;
+    }
+
+    public Button getBtnLogin() {
+        return btnLogin;
+    }
+
     private VBox root = new VBox();
     private HBox row1 = new HBox();
     private HBox row2 = new HBox();
@@ -30,7 +46,14 @@ public class LoginScreen {
 
 
     UsuarioService usuarioService = new UsuarioService();
+
+
+    public void setUsuarioService(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
+
     public LoginScreen() throws SQLException {
+
         //Configuramos los elementos del layout
         root.setPadding(new Insets(10));
         root.setSpacing(20);
@@ -49,13 +72,15 @@ public class LoginScreen {
         //Añadimos la interactividad con los botones
         btnLogin.setOnAction(event -> {
             try {
-                Usuario usuario = usuarioService.searchUser(txtUser.getText(),txtPassword.getText());
-                System.out.println(usuario != null);
+                Usuario usuario = this.usuarioService.searchUser(txtUser.getText(),txtPassword.getText());
+                this.usuarioService.isLogin(txtUser.getText(),txtPassword.getText());
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         } );
     }
+
+
 
     public VBox getRoot() {
         return root;
