@@ -1,5 +1,7 @@
 package iessanalberto.dam1.proyectomaven.services;
 
+
+
 public class LoginService {
     private static final int maxAttempts = 3;
 
@@ -14,6 +16,8 @@ public class LoginService {
         boolean result = true;
         if (isLocked()) {
             result = false;
+
+
 
         } else {
             if (user.isEmpty() || user.trim().isEmpty()) {
