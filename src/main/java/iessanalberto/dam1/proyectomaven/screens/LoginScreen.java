@@ -1,12 +1,16 @@
 package iessanalberto.dam1.proyectomaven.screens;
 
+import iessanalberto.dam1.proyectomaven.models.Usuario;
 import iessanalberto.dam1.proyectomaven.services.LoginService;
+import iessanalberto.dam1.proyectomaven.services.UsuarioService;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
+import java.sql.SQLException;
 
 
 public class LoginScreen {
@@ -22,7 +26,11 @@ public class LoginScreen {
     private Button btnLogin = new Button("Login");
 
     LoginService loginService = new LoginService();
-    public LoginScreen() {
+
+
+
+    UsuarioService usuarioService = new UsuarioService();
+    public LoginScreen() throws SQLException {
         //Configuramos los elementos del layout
         root.setPadding(new Insets(10));
         root.setSpacing(20);
@@ -39,7 +47,14 @@ public class LoginScreen {
         row2.getChildren().addAll(lblPassword, txtPassword);
         root.getChildren().addAll(row1, row2, btnLogin);
         //Añadimos la interactividad con los botones
-        btnLogin.setOnAction(event -> loginService.isLogin(txtUser.getText(),txtPassword.getText()) );
+        btnLogin.setOnAction(event -> {
+            try {
+                Usuario usuario = usuarioService.searchUser(txtUser.getText(),txtPassword.getText());
+                System.out.println(usuario != null);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } );
     }
 
     public VBox getRoot() {
