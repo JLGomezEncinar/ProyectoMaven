@@ -1,9 +1,10 @@
 package iessanalberto.dam1.proyectomaven.screens;
 
-import iessanalberto.dam1.proyectomaven.models.Usuario;
+
 import iessanalberto.dam1.proyectomaven.services.UsuarioService;
 import javafx.application.Platform;
-import javafx.scene.control.Button;
+import javafx.event.ActionEvent;
+
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.junit.jupiter.api.BeforeAll;
@@ -14,17 +15,17 @@ import org.mockito.MockitoAnnotations;
 
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class LoginScreenTestWithMockito {
     @Mock
     private UsuarioService usuarioServiceMock;
 
     @Mock
-    private Usuario usuarioMock;
+    private TextField txtUserMock;
+
+    @Mock
+    private PasswordField txtPasswordMock;
 
     private LoginScreen loginScreen;
 
@@ -41,26 +42,27 @@ class LoginScreenTestWithMockito {
         MockitoAnnotations.openMocks(this);
         loginScreen = new LoginScreen();
         loginScreen.setUsuarioService(usuarioServiceMock);
+        loginScreen.setTxtUser(txtUserMock);
+        loginScreen.setTxtPassword(txtPasswordMock);
     }
 
     @Test
-    public void testLoginExitoso() throws SQLException {
+    public void testLoginExitoso() throws SQLException, InterruptedException {
         // Dado
         String usuario = "user";
         String password = "password";
-        usuarioMock = new Usuario(usuario, password);
-        when(usuarioServiceMock.searchUser(usuario, password)).thenReturn(usuarioMock);
-        when(usuarioServiceMock.isLogin(usuario, password)).thenReturn(true);
 
-        loginScreen.getTxtUser().setText(usuario);
-        loginScreen.getTxtPassword().setText(password);
+        when(txtUserMock.getText()).thenReturn(usuario);
+        when(txtPasswordMock.getText()).thenReturn(password);
 
-        // Cuando
-        loginScreen.getBtnLogin().fire();
+        doNothing().when(usuarioServiceMock).isLogin(usuario, password);
 
 
-        verify(usuarioServiceMock).searchUser(usuario, password);
-        verify(usuarioServiceMock).isLogin(usuario, password);
+            loginScreen.getBtnLogin().fireEvent(new ActionEvent());
+
+
+
+        verify(usuarioServiceMock).isLogin(usuario,password);
     }
 }
 

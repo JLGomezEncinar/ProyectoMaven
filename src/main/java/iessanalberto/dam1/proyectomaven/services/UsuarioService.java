@@ -12,6 +12,8 @@ import java.sql.SQLException;
 public class UsuarioService {
     private UsuarioDAO usuarioDAO;
 
+    private Usuario usuario;
+
     public UsuarioService() throws SQLException {
 
         Connection connection = DBConnection.obtenerConexion();
@@ -30,10 +32,10 @@ public class UsuarioService {
 
     AlertClass alertClass = new AlertClass();
 
-    public boolean isLogin (String user, String password) throws SQLException {
-        boolean result = true;
+    public void isLogin (String user, String password) throws SQLException {
+        usuario = usuarioDAO.searchUser(user, password);
         if (isLocked()) {
-            result = false;
+
             alertClass.showAlert(Alert.AlertType.ERROR,"Usuario Bloqueado","Se han superado el número de intentos.");
         } else if (user.isEmpty() || user.trim().isEmpty()) {
                 //throw new IllegalArgumentException ("El usuario no puede estar vacío.");
@@ -41,17 +43,16 @@ public class UsuarioService {
             } else if (password.isEmpty() || password.trim().isEmpty()) {
                 //throw new IllegalArgumentException ("El password no puede estar vacío.");
                 alertClass.showAlert(Alert.AlertType.ERROR,"Faltan datos","El password no puede estar vacío.");
-            } else if (searchUser(user, password) == null) {
+            } else if (usuario == null) {
                 failedAttempts++;
-                result = false;
+
                 alertClass.showAlert(Alert.AlertType.ERROR,"Datos erróneos","Usuario y/o contraseña incorrectos");
             } else {
                 failedAttempts = 0;
                 alertClass.showAlert(Alert.AlertType.INFORMATION,"Conexión exitosa","Se ha logueado correctamente.");
             }
 
-        System.out.println(result);
-        return result;
+
 
     }
     public boolean isLocked() {

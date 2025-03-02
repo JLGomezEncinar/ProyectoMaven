@@ -54,6 +54,14 @@ public class LoginScreen {
         this.usuarioService = usuarioService;
     }
 
+    public void setTxtUser(TextField txtUser) {
+        this.txtUser = txtUser;
+    }
+
+    public void setTxtPassword(PasswordField txtPassword) {
+        this.txtPassword = txtPassword;
+    }
+
     public LoginScreen() throws SQLException {
 
         //Configuramos los elementos del layout
@@ -74,7 +82,7 @@ public class LoginScreen {
         //Añadimos la interactividad con los botones
         btnLogin.setOnAction(event -> {
             try {
-                Usuario usuario = this.usuarioService.searchUser(txtUser.getText(),txtPassword.getText());
+                //Usuario usuario = this.usuarioService.searchUser(txtUser.getText(),txtPassword.getText());
                 this.usuarioService.isLogin(txtUser.getText(),txtPassword.getText());
             } catch (SQLException e) {
                 throw new RuntimeException(e);
