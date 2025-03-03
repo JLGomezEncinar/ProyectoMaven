@@ -1,7 +1,6 @@
 package iessanalberto.dam1.proyectomaven.screens;
 
-import iessanalberto.dam1.proyectomaven.models.Usuario;
-import iessanalberto.dam1.proyectomaven.services.LoginService;
+
 import iessanalberto.dam1.proyectomaven.services.UsuarioService;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -41,7 +40,7 @@ public class LoginScreen {
     private PasswordField txtPassword = new PasswordField();
     private Button btnLogin = new Button("Login");
 
-    LoginService loginService = new LoginService();
+
 
 
 
@@ -81,12 +80,13 @@ public class LoginScreen {
         root.getChildren().addAll(row1, row2, btnLogin);
         //Añadimos la interactividad con los botones
         btnLogin.setOnAction(event -> {
+
             try {
-                //Usuario usuario = this.usuarioService.searchUser(txtUser.getText(),txtPassword.getText());
                 this.usuarioService.isLogin(txtUser.getText(),txtPassword.getText());
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
+
         } );
     }
 

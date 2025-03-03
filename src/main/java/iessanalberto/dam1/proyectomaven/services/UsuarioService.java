@@ -32,8 +32,10 @@ public class UsuarioService {
 
     AlertClass alertClass = new AlertClass();
 
-    public void isLogin (String user, String password) throws SQLException {
-        usuario = usuarioDAO.searchUser(user, password);
+
+    public boolean isLogin (String user, String password) throws SQLException {
+        boolean result = false;
+        //usuario = usuarioDAO.searchUser(user, password);
         if (isLocked()) {
 
             alertClass.showAlert(Alert.AlertType.ERROR,"Usuario Bloqueado","Se han superado el número de intentos.");
@@ -43,14 +45,16 @@ public class UsuarioService {
             } else if (password.isEmpty() || password.trim().isEmpty()) {
                 //throw new IllegalArgumentException ("El password no puede estar vacío.");
                 alertClass.showAlert(Alert.AlertType.ERROR,"Faltan datos","El password no puede estar vacío.");
-            } else if (usuario == null) {
+            } else if (searchUser(user,password) == null) {
                 failedAttempts++;
 
-                alertClass.showAlert(Alert.AlertType.ERROR,"Datos erróneos","Usuario y/o contraseña incorrectos");
+                alertClass.showAlert(Alert.AlertType.ERROR,"Datos erróneos","Usuario y/o contraseña incorrectos, intentos restantes: " +(maxAttempts-failedAttempts));
             } else {
                 failedAttempts = 0;
                 alertClass.showAlert(Alert.AlertType.INFORMATION,"Conexión exitosa","Se ha logueado correctamente.");
+                result = true;
             }
+        return result;
 
 
 
@@ -58,5 +62,6 @@ public class UsuarioService {
     public boolean isLocked() {
         return failedAttempts == maxAttempts;
     }
+
 
 }
