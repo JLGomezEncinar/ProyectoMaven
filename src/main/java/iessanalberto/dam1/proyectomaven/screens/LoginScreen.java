@@ -2,6 +2,7 @@ package iessanalberto.dam1.proyectomaven.screens;
 
 
 import iessanalberto.dam1.proyectomaven.services.UsuarioService;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
@@ -82,7 +83,9 @@ public class LoginScreen {
         btnLogin.setOnAction(event -> {
 
             try {
-                this.usuarioService.isLogin(txtUser.getText(),txtPassword.getText());
+               if(this.usuarioService.isLogin(txtUser.getText(),txtPassword.getText())){
+                   Platform.exit();
+               }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
