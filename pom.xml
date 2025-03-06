@@ -18,12 +18,24 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>17.0.6</version>
+            <version>23-ea+20</version>
         </dependency>
+        <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.15.2</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>17.0.6</version>
+            <version>23-ea+20</version>
         </dependency>
 
         <dependency>
@@ -32,23 +44,72 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>iessanalberto.dam1.proyectomaven.Main</mainClass>
+                                </transformer>
+                            </transformers>
+                            <filters>
+                                <!-- Include the JavaFX libraries in the jar -->
+                                <filter>
+                                    <artifact>*:*</artifact>
+
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.2</version> <!-- Usa la versión más reciente disponible -->
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Main-Class>iessanalberto.dam1.proyectomaven.HelloApplication</Main-Class> <!-- Reemplaza con la clase principal de tu proyecto -->
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.13.0</version>
+                <version>4.0.0-beta-2</version>
                 <configuration>
                     <source>23</source>
                     <target>23</target>
+                    <basedir/>
+
+                    <outputDirectory/>
+                    <projectArtifact/>
+
+                    <mainOutputDirectory/>
+                    <mojoStatusPath/>
                 </configuration>
             </plugin>
             <plugin>
@@ -57,11 +118,11 @@
                 <version>0.0.8</version>
                 <executions>
                     <execution>
-                        <!-- Default configuration for running with: mvn clean javafx:run -->
+
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                iessanalberto.dam1.proyectomaven/iessanalberto.dam1.proyectomaven.HelloApplication
+                                iessanalberto.dam1.proyectomaven.HelloApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
