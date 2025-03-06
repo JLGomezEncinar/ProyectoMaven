@@ -1,10 +1,13 @@
-package iessanalberto.dam1.proyectomaven.screens;
+package iessanalberto.dam1.proyectomaven;
 
 
+
+import iessanalberto.dam1.proyectomaven.screens.LoginScreen;
 import iessanalberto.dam1.proyectomaven.services.UsuarioService;
 import javafx.application.Platform;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +19,7 @@ import java.sql.SQLException;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-class LoginScreenTestWithMockito {
+class LoginScreenTest extends JavaFXTestBase{
     @Mock
     private UsuarioService usuarioServiceMock;
 
@@ -29,13 +32,11 @@ class LoginScreenTestWithMockito {
 
     private LoginScreen loginScreen;
 
-    @BeforeAll
-    public static void initToolkit() {
-        if (!Platform.isFxApplicationThread()) {
-            Platform.startup(() -> {
-            });
-        }
-    }
+
+
+
+
+
 
     @BeforeEach
     public void setUp() throws SQLException {
@@ -47,6 +48,7 @@ class LoginScreenTestWithMockito {
 
 
     }
+
 
     @Test
     public void testLoginExitoso() throws SQLException {

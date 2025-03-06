@@ -5,5 +5,6 @@ module iessanalberto.dam1.proyectomaven {
 
 
 
-    exports iessanalberto.dam1.proyectomaven to javafx.graphics;
+    exports iessanalberto.dam1.proyectomaven to javafx.fxml,javafx.controls;
+
 }

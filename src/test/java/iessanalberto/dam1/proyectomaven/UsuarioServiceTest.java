@@ -1,31 +1,31 @@
-package iessanalberto.dam1.proyectomaven.services;
+package iessanalberto.dam1.proyectomaven;
 
+
+import iessanalberto.dam1.proyectomaven.services.UsuarioService;
 import javafx.application.Platform;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UsuarioServiceTest {
+class UsuarioServiceTest extends JavaFXTestBase{
 
     private UsuarioService usuarioService;
-    @BeforeAll
-    public static void initToolkit() {
-        if (!Platform.isFxApplicationThread()) {
-            Platform.startup(() -> {
-            });
-        }
-    }
+
+
+
+
+
+
+
     @BeforeEach
     void setUp () throws SQLException {
 
         usuarioService = new UsuarioService();
 
     }
+
     @Test
     void LoginSuccesful() {
         Platform.runLater(() -> {

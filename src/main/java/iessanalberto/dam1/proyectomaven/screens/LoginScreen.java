@@ -3,6 +3,8 @@ package iessanalberto.dam1.proyectomaven.screens;
 
 import iessanalberto.dam1.proyectomaven.services.UsuarioService;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
@@ -14,6 +16,7 @@ import java.sql.SQLException;
 
 
 public class LoginScreen {
+
     public HBox getRow1() {
         return row1;
     }
@@ -84,7 +87,7 @@ public class LoginScreen {
 
             try {
                if(this.usuarioService.isLogin(txtUser.getText(),txtPassword.getText())){
-                   Platform.exit();
+                    Platform.exit();
                }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
