@@ -14,7 +14,7 @@
         <junit.version>5.10.2</junit.version>
         <sonar.projectName>Proyecto</sonar.projectName>
         <sonar.projectKey>Proyecto</sonar.projectKey>
-
+        <sonar.host.url>http://44.202.202.62:9000</sonar.host.url>
 
 
     </properties>
