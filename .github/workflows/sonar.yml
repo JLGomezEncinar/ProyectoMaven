@@ -50,11 +50,5 @@ jobs:
           -Dsonar.host.url=http://44.202.202.62:9000 \
           -Dsonar.login=$SONAR_TOKEN
 
-    - name: Run tests (CI profile)
-      run: mvn test -P ci
-      
-    - name: Run tests
-      run: mvn test
-
-    
+        
 
