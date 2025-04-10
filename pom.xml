@@ -161,4 +161,16 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>ci</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <skip.javafx.tests>true</skip.javafx.tests>
+            </properties>
+        </profile>
+    </profiles>
+
 </project>

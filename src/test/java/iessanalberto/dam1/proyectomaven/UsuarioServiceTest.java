@@ -22,6 +22,14 @@ class UsuarioServiceTest extends JavaFXTestBase{
     @BeforeEach
     void setUp () throws SQLException {
 
+            if (System.getenv("CI") != null) {
+                // Si estamos en GitHub Actions, omitir inicialización de JavaFX
+                return;
+            }
+            // Código para inicializar JavaFX
+
+
+
         usuarioService = new UsuarioService();
 
     }
