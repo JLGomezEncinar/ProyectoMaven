@@ -23,6 +23,14 @@ jobs:
         java-version: '23'
         distribution: 'temurin'
 
+    - name: Install Maven 4.0.0-rc-2
+      run: |
+        curl -sL https://archive.apache.org/dist/maven/maven-4/4.0.0-rc-2/apache-maven-4.0.0-rc-2-bin.tar.gz | tar xz
+        sudo mv apache-maven-4.0.0-rc-2 /opt/maven
+        echo "MAVEN_HOME=/opt/maven" >> $GITHUB_ENV
+        echo "/opt/maven/bin" >> $GITHUB_PATH
+
+
     - name: Cache Maven dependencies
       uses: actions/cache@v3
       with:
