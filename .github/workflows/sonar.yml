@@ -43,9 +43,12 @@ jobs:
       run: mvn clean install -DskipTests
 
     - name: SonarQube Scan
-      uses: SonarSource/sonarcloud-github-action@v1
       env:
         sonar-token: ${{ secrets.SONAR_TOKEN }}  # Token de SonarQube
+        run: |
+         mvn sonar:sonar \
+          -Dsonar.host.url=http://44.202.202.62:9000 \
+          -Dsonar.login=$SONAR_TOKEN
 
     - name: Run tests
       run: mvn test
