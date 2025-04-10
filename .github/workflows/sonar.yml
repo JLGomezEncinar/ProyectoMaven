@@ -44,7 +44,7 @@ jobs:
 
     - name: SonarQube Scan
       uses: SonarSource/sonarcloud-github-action@v1
-      with:
+      env:
         sonar-token: ${{ secrets.SONAR_TOKEN }}  # Token de SonarQube
 
     - name: Run tests
