@@ -9,11 +9,7 @@ public abstract class JavaFXTestBase {
 
     @BeforeAll
     public static void initToolkit() {
-        if (System.getenv("CI") != null) {
-            // Si estamos en GitHub Actions, omitir inicialización de JavaFX
-            return;
-        }
-        if (!toolkitInitialized) {
+       if (!toolkitInitialized) {
             if (!Platform.isFxApplicationThread()) {
                 Platform.startup(() -> {
                     toolkitInitialized = true;

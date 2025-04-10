@@ -40,10 +40,7 @@ class LoginScreenTest extends JavaFXTestBase{
 
     @BeforeEach
     public void setUp() throws SQLException {
-        if (System.getenv("CI") != null) {
-            // Si estamos en GitHub Actions, omitir inicialización de JavaFX
-            return;
-        }
+
         // Código para inicializar JavaFX
         MockitoAnnotations.openMocks(this);
         loginScreen = new LoginScreen();
