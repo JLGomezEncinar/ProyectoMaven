@@ -34,7 +34,7 @@ jobs:
       run: mvn clean install -DskipTests
 
     - name: SonarQube Scan
-      uses: SonarSource/sonarcloud-action@v2
+      uses: SonarSource/sonarcloud-github-action@v1
       with:
         sonar-token: ${{ secrets.SONAR_TOKEN }}  # Token de SonarQube
 
