@@ -3,10 +3,10 @@ name: SonarQube Analysis
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   sonar:
@@ -21,9 +21,18 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '23'
+        distribution: 'temurin'
+
+    - name: Install Maven 4.0.0-rc-2
+      run: |
+        curl -sL https://archive.apache.org/dist/maven/maven-4/4.0.0-rc-2/apache-maven-4.0.0-rc-2-bin.tar.gz | tar xz
+        sudo mv apache-maven-4.0.0-rc-2 /opt/maven
+        echo "MAVEN_HOME=/opt/maven" >> $GITHUB_ENV
+        echo "/opt/maven/bin" >> $GITHUB_PATH
+
 
     - name: Cache Maven dependencies
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ~/.m2/repository
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -34,9 +43,12 @@ jobs:
       run: mvn clean install -DskipTests
 
     - name: SonarQube Scan
-      uses: SonarSource/sonarcloud-action@v2
-      with:
+      env:
         sonar-token: ${{ secrets.SONAR_TOKEN }}  # Token de SonarQube
+      run: |
+         mvn sonar:sonar \
+          -Dsonar.host.url=http://44.202.202.62:9000 \
+          -Dsonar.login=$SONAR_TOKEN
 
     - name: Run tests
       run: mvn test
