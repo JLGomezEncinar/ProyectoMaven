@@ -52,3 +52,7 @@ jobs:
 
     - name: Run tests
       run: mvn test
+
+    - name: Run tests (CI profile)
+      run: mvn test -P ci
+
