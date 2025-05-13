@@ -27,7 +27,9 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Ejecutando pruebas unitarias...'
-                sh 'mvn test'
+                wrap([$class: 'Xvfb']) {
+                    sh 'mvn test'
+                }    
             }
         }
 
