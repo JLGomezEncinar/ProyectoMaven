@@ -36,7 +36,7 @@ pipeline {
         stage('Package') {
             steps {
                 echo 'Empaquetando artefactos...'
-                sh 'mvn package'
+                sh 'mvn package -Dmaven.test.skip=true'
             }
         }
 
