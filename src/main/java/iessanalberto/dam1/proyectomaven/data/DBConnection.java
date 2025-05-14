@@ -9,14 +9,14 @@ import java.util.Properties;
 
 public class DBConnection {
 
-    private static String URL;
-    private static String USER;
-    private static String PASSWORD;
+    private static final String URL;
+    private static final String USER;
+    private static final String PASSWORD;
      static {
          try (
                  InputStream input = DBConnection.class.getClassLoader().getResourceAsStream("db.properties")) {
              if (input == null) {
-                 System.out.println("No se pudo encontrar el archivo db.properties");
+                 throw new Exception("No se pudo encontrar el archivo db.properties");
 
              }
 
@@ -25,7 +25,7 @@ public class DBConnection {
              try {
                  prop.load(input);
              } catch (IOException e) {
-                 throw new RuntimeException(e);
+                 throw new RuntimeException("Error al cargar el archivo");
              }
 
 
@@ -36,8 +36,8 @@ public class DBConnection {
 
 
 
-         } catch (IOException ex) {
-             ex.printStackTrace();
+         } catch (Exception ex) {
+             throw new RuntimeException("No se pudo realizar la conexión");
          }
      }
 

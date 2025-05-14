@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
+import java.util.concurrent.CountDownLatch;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,19 +32,25 @@ class UsuarioServiceTest extends JavaFXTestBase{
     }
 
     @Test
-    void LoginSuccesful() {
-        Platform.runLater(() -> {
-           try {
+    void LoginSuccesful() throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
 
+        Platform.runLater(() -> {
+            try {
                 boolean result = usuarioService.isLogin("user", "password");
                 Assertions.assertTrue(result, "Se debería loguear con estas credenciales");
-           } catch (Exception e) {
-               throw new RuntimeException(e);
-           }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            } finally {
+                latch.countDown();  // Señal de que terminó
+            }
         });
+
+        latch.await();
     }
     @Test
-    void LoginBlocked () {
+    void LoginBlocked () throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
         Platform.runLater(() -> {
             try {
         Assertions.assertFalse(usuarioService.isLogin("wrongUser","wrongPassword"));
@@ -52,11 +59,15 @@ class UsuarioServiceTest extends JavaFXTestBase{
         Assertions.assertFalse(usuarioService.isLogin("user","password"));
             } catch (Exception e) {
                 throw new RuntimeException(e);
-            }
+            } finally {
+            latch.countDown();  // Señal de que terminó
+        }
         });
+        latch.await();
     }
     @Test
-    void ResetAttempts () {
+    void ResetAttempts () throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
         Platform.runLater(() -> {
             try {
         Assertions.assertFalse(usuarioService.isLogin("wrongUser","wrongPassword"));
@@ -66,9 +77,11 @@ class UsuarioServiceTest extends JavaFXTestBase{
                 throw new RuntimeException(e);
             }
         });
+        latch.await();
     }
     @Test
-    void NullLogin () {
+    void NullLogin () throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
         Platform.runLater(() -> {
             try {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -77,8 +90,11 @@ class UsuarioServiceTest extends JavaFXTestBase{
         assertEquals("El usuario no puede estar vacío.", exception.getMessage());
             } catch (Exception e) {
                 throw new RuntimeException(e);
+            } finally {
+                latch.countDown();  // Señal de que terminó
             }
         });
+        latch.await();
     }
 
 

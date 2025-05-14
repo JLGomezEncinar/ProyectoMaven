@@ -12,10 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.10.2</junit.version>
-        <sonar.projectName>Proyecto</sonar.projectName>
-        <sonar.projectKey>Proyecto</sonar.projectKey>
-        <sonar.host.url>http://44.202.202.62:9000</sonar.host.url>
-        <sonar.token>sqp_df1634eccf8a99c7216b7f20fc00d9a36938c46a</sonar.token>
+
 
     </properties>
 

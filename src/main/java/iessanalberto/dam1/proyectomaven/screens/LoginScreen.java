@@ -3,8 +3,7 @@ package iessanalberto.dam1.proyectomaven.screens;
 
 import iessanalberto.dam1.proyectomaven.services.UsuarioService;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
@@ -17,32 +16,17 @@ import java.sql.SQLException;
 
 public class LoginScreen {
 
-    public HBox getRow1() {
-        return row1;
-    }
 
-    public TextField getTxtUser() {
-        return txtUser;
-    }
-
-    public PasswordField getTxtPassword() {
-        return txtPassword;
-    }
 
     public Button getBtnLogin() {
         return btnLogin;
     }
 
-    private VBox root = new VBox();
-    private HBox row1 = new HBox();
-    private HBox row2 = new HBox();
-    //Componentes de la ventana
-    private Label lblUser = new Label("Usuario");
+    private final VBox root = new VBox();
     private TextField txtUser = new TextField();
 
-    private Label lblPassword = new Label("Password");
     private PasswordField txtPassword = new PasswordField();
-    private Button btnLogin = new Button("Login");
+    private final Button btnLogin = new Button("Login");
 
 
 
@@ -71,19 +55,24 @@ public class LoginScreen {
         root.setPadding(new Insets(10));
         root.setSpacing(20);
         root.setAlignment(Pos.CENTER);
+        HBox row1 = new HBox();
         row1.setAlignment(Pos.CENTER_RIGHT);
         row1.setPadding(new Insets(0, 20, 0, 0));
         row1.setSpacing(5);
+        HBox row2 = new HBox();
         row2.setAlignment(Pos.CENTER_RIGHT);
         row2.setPadding(new Insets(0, 20, 0, 0));
         row2.setSpacing(5);
 
         //Añadimos los componentes a su layout
+        //Componentes de la ventana
+        Label lblUser = new Label("Usuario");
         row1.getChildren().addAll(lblUser, txtUser);
+        Label lblPassword = new Label("Password");
         row2.getChildren().addAll(lblPassword, txtPassword);
         root.getChildren().addAll(row1, row2, btnLogin);
         //Añadimos la interactividad con los botones
-        btnLogin.setOnAction(event -> {
+        btnLogin.setOnAction(_ -> {
 
             try {
                if(this.usuarioService.isLogin(txtUser.getText(),txtPassword.getText())){

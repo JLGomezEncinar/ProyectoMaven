@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.sql.SQLException;
+import java.util.concurrent.CountDownLatch;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -53,7 +54,7 @@ class LoginScreenTest extends JavaFXTestBase{
 
 
     @Test
-    public void testLoginExitoso() throws SQLException {
+    public void testLoginExitoso() throws SQLException, InterruptedException {
 
         String usuario = "user";
         String password = "password";
@@ -62,10 +63,22 @@ class LoginScreenTest extends JavaFXTestBase{
         when(txtUserMock.getText()).thenReturn(usuario);
         when(txtPasswordMock.getText()).thenReturn(password);
 
-        loginScreen.getBtnLogin().fire();
+        CountDownLatch latch = new CountDownLatch(1);
 
+        Platform.runLater(() -> {
+            try {
+                loginScreen.getBtnLogin().fire();
+                try {
+                    verify(usuarioServiceMock).isLogin(usuario, password);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            } finally {
+                latch.countDown();
+            }
+        });
 
-        verify(usuarioServiceMock).isLogin(usuario, password);
+        latch.await();
     }
 }
 

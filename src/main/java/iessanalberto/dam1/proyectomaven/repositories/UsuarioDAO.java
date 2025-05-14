@@ -8,13 +8,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UsuarioDAO {
-    private Connection connection;
+    private final Connection connection;
 
     public UsuarioDAO(Connection connection) {
         this.connection = connection;
     }
 
-    public Usuario searchUser(String user, String password) throws SQLException {
+    public Usuario searchUser(String user, String password) {
         Usuario usuario = null;
         String sql = "SELECT * FROM USUARIOS WHERE USER = ? AND PASSWORD = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -27,8 +27,9 @@ public class UsuarioDAO {
             }
 
 
+
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("No se ha podido realizar la consulta");
         }
         return usuario;
     }

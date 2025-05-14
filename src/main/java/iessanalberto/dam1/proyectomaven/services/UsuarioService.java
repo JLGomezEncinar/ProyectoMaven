@@ -10,9 +10,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class UsuarioService {
-    private UsuarioDAO usuarioDAO;
+    private final UsuarioDAO usuarioDAO;
 
-    private Usuario usuario;
+
 
     public UsuarioService() throws SQLException {
 
@@ -35,15 +35,15 @@ public class UsuarioService {
 
     public boolean isLogin (String user, String password) throws SQLException {
         boolean result = false;
-        //usuario = usuarioDAO.searchUser(user, password);
+
         if (isLocked()) {
 
             alertClass.showAlert(Alert.AlertType.ERROR,"Usuario Bloqueado","Se han superado el número de intentos.");
         } else if (user.isEmpty() || user.trim().isEmpty()) {
-                //throw new IllegalArgumentException ("El usuario no puede estar vacío.");
+
                 alertClass.showAlert(Alert.AlertType.ERROR,"Faltan datos","El usuario no puede estar vacío.");
             } else if (password.isEmpty() || password.trim().isEmpty()) {
-                //throw new IllegalArgumentException ("El password no puede estar vacío.");
+
                 alertClass.showAlert(Alert.AlertType.ERROR,"Faltan datos","El password no puede estar vacío.");
             } else if (searchUser(user,password) == null) {
                 failedAttempts++;
