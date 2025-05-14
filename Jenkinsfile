@@ -28,7 +28,7 @@ pipeline {
             steps {
                 echo 'Ejecutando pruebas unitarias...'
                 wrap([$class: 'Xvfb']) {
-                    sh 'mvn test -Dmaven.test.skip=true'
+                    sh 'mvn test -DskipTests'
                 }    
             }
         }
