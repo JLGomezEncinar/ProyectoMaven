@@ -14,6 +14,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
+                echo "🔎 Rama actual: ${env.GIT_BRANCH}"
+
             }
         }
 
