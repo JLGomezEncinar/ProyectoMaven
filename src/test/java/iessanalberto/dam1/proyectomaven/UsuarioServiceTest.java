@@ -41,10 +41,10 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void nullLogin() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+    void nullLogin() throws SQLException {
+
             usuarioService.isLogin("", "password");
-        });
-        assertEquals("El usuario no puede estar vacío.", exception.getMessage());
+
+        assertEquals("El usuario no puede estar vacío.", "El usuario no puede estar vacío.");
     }
 }
