@@ -1,29 +1,26 @@
 package iessanalberto.dam1.proyectomaven;
 
-
-
 import iessanalberto.dam1.proyectomaven.screens.LoginScreen;
 import iessanalberto.dam1.proyectomaven.services.UsuarioService;
 import javafx.application.Platform;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.SQLException;
 import java.util.concurrent.CountDownLatch;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-class LoginScreenTest extends JavaFXTestBase{
+@ExtendWith(MockitoExtension.class)
+class LoginScreenTest extends JavaFXTestBase {
+
     @Mock
     private UsuarioService usuarioServiceMock;
-
 
     @Mock
     private TextField txtUserMock;
@@ -33,29 +30,16 @@ class LoginScreenTest extends JavaFXTestBase{
 
     private LoginScreen loginScreen;
 
-
-
-
-
-
-
     @BeforeEach
     public void setUp() throws SQLException {
-
-        // Código para inicializar JavaFX
-        MockitoAnnotations.openMocks(this);
         loginScreen = new LoginScreen();
         loginScreen.setUsuarioService(usuarioServiceMock);
         loginScreen.setTxtUser(txtUserMock);
         loginScreen.setTxtPassword(txtPasswordMock);
-
-
     }
-
 
     @Test
     public void testLoginExitoso() throws SQLException, InterruptedException {
-
         String usuario = "user";
         String password = "password";
 
@@ -68,11 +52,9 @@ class LoginScreenTest extends JavaFXTestBase{
         Platform.runLater(() -> {
             try {
                 loginScreen.getBtnLogin().fire();
-                try {
-                    verify(usuarioServiceMock).isLogin(usuario, password);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
+                verify(usuarioServiceMock).isLogin(usuario, password);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             } finally {
                 latch.countDown();
             }
@@ -81,4 +63,3 @@ class LoginScreenTest extends JavaFXTestBase{
         latch.await();
     }
 }
-
