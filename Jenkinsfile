@@ -14,7 +14,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
-                echo "🔎 Rama actual: ${env.GIT_BRANCH}"
+                
 
             }
         }
@@ -44,8 +44,12 @@ pipeline {
 
         stage('Deploy') {
             when {
-                branch 'refs/remotes/origin/master'
-            }
+                anyOf {
+            branch 'master'
+            expression { env.BRANCH_NAME == 'origin/master' }
+            expression { env.GIT_BRANCH == 'origin/master' }
+        }
+    }
             steps {
                 echo 'Desplegando artefactos desde rama main...'
                 // Reemplaza esta línea por tu estrategia real (por ejemplo: scp, docker push, etc.)
