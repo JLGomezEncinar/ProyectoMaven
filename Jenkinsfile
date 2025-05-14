@@ -38,13 +38,13 @@ pipeline {
         stage('Package') {
             steps {
                 echo 'Empaquetando artefactos...'
-                sh 'mvn package -Dmaven.test.skip=true'
+                sh 'mvn package -DskipTests'
             }
         }
 
         stage('Deploy') {
             when {
-                branch 'master'
+                branch 'refs/remotes/origin/master'
             }
             steps {
                 echo 'Desplegando artefactos desde rama main...'
