@@ -28,7 +28,11 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh 'mvn sonar:sonar'
+                    sh 'mvn sonar:sonar \
+                      -Dsonar.projectKey=Proyecto-Maven \
+                      -Dsonar.projectName='Proyecto Maven' \
+                      -Dsonar.host.url=http://174.129.73.153:9000 \
+                      -Dsonar.token=sqp_c1f307cbc2a1857898f6e7ac2fa81e166d040826'
                 }
             }
         }
