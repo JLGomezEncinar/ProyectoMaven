@@ -28,7 +28,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     withCredentials([string(credentialsId: 'SONAR_TOKEN_ID', variable: 'SONAR_TOKEN')]) {
-                        sh "mvn sonar:sonar -Dsonar.projectKey=Proyecto-Maven -Dsonar.projectName='Proyecto Maven' -Dsonar.host.url=http://174.129.73.153:9000 -Dsonar.token=$SONAR_TOKEN"
+                        sh "mvn sonar:sonar -Dsonar.projectKey=ProyectoMaven -Dsonar.projectName='ProyectoMaven' -Dsonar.host.url=http://174.129.73.153:9000 -Dsonar.token=$SONAR_TOKEN"
                     }
                 }
             }
